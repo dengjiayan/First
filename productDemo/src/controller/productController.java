@@ -29,7 +29,7 @@ public class productController {
 	
 	@RequestMapping("/getAll")
 	public String getAll(@RequestParam(defaultValue="1")int begin,HttpServletRequest request){
-		
+		System.out.println("1");
 		int num = ps.count();
 		int nums = num%2==0?num/2:num/2+1;
 		request.getSession().setAttribute("nums", nums);
