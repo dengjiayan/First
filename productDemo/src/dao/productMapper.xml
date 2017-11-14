@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.productMapper">
+	<resultMap type="Product" id="pro">
+	<id property="id" column="id"/>
+	<result property="productname" column="productname"/>
+	<result property="descs" column="descs"/>
+	<association property="c" javaType="Catagory">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+	</association>
+	</resultMap>
+	<select id="getAll" resultMap="pro">
+		select * from product p join catagory c on p.cid=c.id order by p.id limit #{b},#{s}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from product
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from product where id = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="Product">
+		insert product(productname,descs,cid) VALUES(#{productname},#{descs},#{cid})
+	</insert>
+</mapper>
